@@ -10,12 +10,11 @@ import {
   ComputeBudgetProgram,
 } from "@solana/web3.js";
 import {
-  DUMMY_LISTING_ACCOUNT,
-  DUMMY_METADATA_ACCOUNT,
   NFT_MINT,
 } from "./marketplaceSOLConstant";
 import {
-  connection,
+  buyerKeypair,
+  connection, sellerKeypair,
 } from "../config";
 import { getMetadataPda, getUserOccStatePda } from "../pda";
 import {
@@ -41,13 +40,6 @@ import {
   TOKEN_2022_PROGRAM_ID,
   TOKEN_PROGRAM_ID,
 } from "@solana/spl-token";
-import {
-  DUMMY_BUYER_TRADE_STATE,
-  DUMMY_BUYER_TRADE_STATE_METADATA,
-  DUMMY_END_TIME,
-  DUMMY_MARKET_TRADE_STATE,
-  DUMMY_SELLER_TRADE_STATE,
-} from "../constants";
 import { Metadata, PROGRAM_ID } from "@metaplex-foundation/mpl-token-metadata";
 
 import {
@@ -65,11 +57,12 @@ end_day_timestamp.setHours(0, 0, 0, 0);
 
 const endTime = end_day_timestamp.getTime() / 1000 + 86400;
 
-export const marketplaceSOLList = async (seller : any) => {
+export const marketplaceSOLList = async () => {
   console.log("instruction::list");
 
   const insList: TransactionInstruction[] = [];
 
+  const seller = await sellerKeypair();
   const [metadataPda] = getMetadataPda(NFT_MINT);
   // console.log("medata", metadataPda.toBase58());
   const [listingStatePda] = getListingStatePda(seller.publicKey, metadataPda);
@@ -164,7 +157,8 @@ export const marketplaceSOLList = async (seller : any) => {
 Marketplace Wallet : ${programAta.toBase58()}`);
 };
 
-export const decodeListingState = async (seller : any) => {
+export const decodeListingState = async () => {
+  const seller = await sellerKeypair();
   const [metadataPda] = getMetadataPda(NFT_MINT);
   const [listingStatePda] = getListingStatePda(seller.publicKey, metadataPda);
   const reponse = await marketplaceSOLProgram.account.listingState.fetch(
@@ -184,9 +178,10 @@ export const decodeListingState = async (seller : any) => {
   return reponse;
 };
 
-export const marketplaceSOLUpdateListing = async (seller : any) => {
+export const marketplaceSOLUpdateListing = async () => {
   console.log("instruction::update_listing");
 
+  const seller = await sellerKeypair();
   const insList: TransactionInstruction[] = [];
 
   const [metadataPda] = getMetadataPda(NFT_MINT);
@@ -231,9 +226,10 @@ export const marketplaceSOLUpdateListing = async (seller : any) => {
   console.log("confirmed transaction", tx);
 };
 
-export const marketplaceSOLCancelListing = async (seller : any) => {
+export const marketplaceSOLCancelListing = async () => {
   console.log("instruction::cancel_listing");
 
+  const seller = await sellerKeypair();
   const insList: TransactionInstruction[] = [];
 
   const [metadataPda] = getMetadataPda(NFT_MINT);
@@ -311,13 +307,15 @@ export const marketplaceSOLCancelListing = async (seller : any) => {
   alert("List Canceled");
 };
 
-export const marketplaceSOLBuyNow = async (buyer : any, seller : PublicKey) => {
+export const marketplaceSOLBuyNow = async () => {
   console.log("instruction::buy_now");
+  const buyer = await buyerKeypair();
+  const seller = await sellerKeypair();
   const marketplaceSOLProgram = getProgram(buyer);
   const insList: TransactionInstruction[] = [];
 
   const [metadataPda] = getMetadataPda(NFT_MINT);
-  const [listingStatePda] = getListingStatePda(seller, metadataPda);
+  const [listingStatePda] = getListingStatePda(seller.publicKey, metadataPda);
 
   let [programATAOwner] = getProgramNFTOwnerPda(metadataPda);
   let programAta: PublicKey = await getAssociatedTokenAddress(
@@ -360,7 +358,7 @@ export const marketplaceSOLBuyNow = async (buyer : any, seller : PublicKey) => {
     .buyNow(new BN(`${endTime}`))
     .accounts({
       listingState: listingStatePda,
-      seller: seller,
+      seller: seller.publicKey,
       nftMetadata: metadataPda,
       buyer: buyer.publicKey,
       prgramNftAta: programAta,
@@ -418,8 +416,9 @@ export const getNFTCreatorAccounts = async () => {
   return creatorsInfo;
 };
 
-export const fundPdaWallet = async (buyer : any) => {
+export const fundPdaWallet = async () => {
   console.log("instruction::fund_withdraw_pda");
+  const buyer = await buyerKeypair();
   const marketplaceSOLProgram = getProgram(buyer);
   const insList: TransactionInstruction[] = [];
   const [usePdaWalletPda] = getUserPdaWallet(buyer.publicKey);
@@ -465,8 +464,9 @@ export const fundPdaWallet = async (buyer : any) => {
   console.log("confirmed transaction", tx);
 };
 
-export const withdrawPdaWallet = async (buyer : any) => {
+export const withdrawPdaWallet = async () => {
   console.log("instruction::fund_withdraw_pda");
+  const buyer = await buyerKeypair();
   const marketplaceSOLProgram = getProgram(buyer);
   const insList: TransactionInstruction[] = [];
   const [usePdaWalletPda] = getUserPdaWallet(buyer.publicKey);
