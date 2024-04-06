@@ -147,6 +147,16 @@
           "isSigner": false
         },
         {
+          "name": "sellerTradeStateMetadata",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "buyerTradeStateMetadata",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
           "name": "seller",
           "isMut": true,
           "isSigner": false
@@ -185,6 +195,66 @@
           "name": "systemProgram",
           "isMut": false,
           "isSigner": false
+        },
+        {
+          "name": "teamMultisigVault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "traderVault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "stakingVault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "programAccessState",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "instructions",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "historyManager",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "sellerEveryDayTradeState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "buyerEveryDayTradeState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "marketEveryDayTradeState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "occsManager",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "sellerOccsState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "buyerOccsState",
+          "isMut": true,
+          "isSigner": false
         }
       ],
       "args": [
@@ -220,6 +290,550 @@
         },
         {
           "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "makeOffer",
+      "accounts": [
+        {
+          "name": "listingState",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "offerState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "buyerPdaWallet",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "buyer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "nftMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "seller",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "nftMetadata",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "offerAmount",
+          "type": "u64"
+        },
+        {
+          "name": "endtime",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "updateOffer",
+      "accounts": [
+        {
+          "name": "listingState",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "offerState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "buyerPdaWallet",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "buyer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "nftMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "seller",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "nftMetadata",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "offerAmount",
+          "type": "u64"
+        },
+        {
+          "name": "endtime",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "closeOffer",
+      "accounts": [
+        {
+          "name": "listingState",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "offerState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "buyer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "nftMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "seller",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "nftMetadata",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "acceptOffer",
+      "accounts": [
+        {
+          "name": "listingState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "offerState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "sellerTradeStateMetadata",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "buyerTradeStateMetadata",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "buyerPdaWallet",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "buyer",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "seller",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "nftMetadata",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "prgramNftAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "buyerNftAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "programNftPdaOwner",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "teamMultisigVault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "traderVault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "stakingVault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgramId",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "programAccessState",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "instructions",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "historyManager",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "sellerEveryDayTradeState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "buyerEveryDayTradeState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "marketEveryDayTradeState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "occsManager",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "sellerOccsState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "buyerOccsState",
+          "isMut": true,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "endDayTimestamp",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "createDirectOffer",
+      "accounts": [
+        {
+          "name": "directOfferState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "nftMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "seller",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "buyer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "nftMetadata",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "buyerPdaWallet",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "sellerNftAta",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "offeredAmount",
+          "type": "u64"
+        },
+        {
+          "name": "endtime",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "closeDirectOffer",
+      "accounts": [
+        {
+          "name": "directOfferState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "nftMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "buyer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "nftMetadata",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "acceptDirectOffer",
+      "accounts": [
+        {
+          "name": "directOfferState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "sellerTradeStateMetadata",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "buyerTradeStateMetadata",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "seller",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "buyer",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "nftMetadata",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "buyerPdaWallet",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "sellerNftAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "buyerNftAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "teamMultisigVault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "traderVault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "stakingVault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgramId",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "programAccessState",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "instructions",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "historyManager",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "sellerEveryDayTradeState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "buyerEveryDayTradeState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "marketEveryDayTradeState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "occsManager",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "sellerOccsState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "buyerOccsState",
+          "isMut": true,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "allowedRoyalty",
+          "type": "u16"
+        },
+        {
+          "name": "endDayTimestamp",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "claimReward",
+      "accounts": [
+        {
+          "name": "userEveydayTradeState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "marketEverydayTradeState",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "userTradeStateMetadata",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "traderVault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "endDayTimestamp",
           "type": "u64"
         }
       ]
@@ -438,5 +1052,8 @@
       "name": "InvalidClaimAccount",
       "msg": "Invalid Claim Account"
     }
-  ]
+  ],
+  "metadata":{
+    "address": "FtoAo5GVW7gePHoBoEiy2xKcWqg8g7iv7z2jv9vn1sNL"
+  }
 }
