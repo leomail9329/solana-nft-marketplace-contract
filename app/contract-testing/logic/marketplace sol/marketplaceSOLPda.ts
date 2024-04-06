@@ -2,6 +2,15 @@ import { PROGRAM_ID } from "@metaplex-foundation/mpl-token-metadata";
 import { PublicKey } from "@solana/web3.js";
 import { marketplaceSOLProgramID } from "./marketplaceSOLConfig";
 
+export const getConfigPda = (
+  owner: PublicKey
+) => {
+  return PublicKey.findProgramAddressSync(
+    [Buffer.from("Config"), owner.toBuffer()],
+    marketplaceSOLProgramID
+  );
+};
+
 export const getListingStatePda = (
   seller: PublicKey,
   nftMetadata: PublicKey

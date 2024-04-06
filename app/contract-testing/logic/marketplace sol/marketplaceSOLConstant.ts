@@ -1,7 +1,12 @@
 import { PublicKey } from "@solana/web3.js";
 
+
+export const PROGRAM_ID = new PublicKey(
+  "HYq63FpbeDKccTBcgeDDEUubVAQRXgrdQHUCtKbCcjyH"
+);
+
 export const NFT_MINT = new PublicKey(
-  "5oPBXTtU3oG7RyH9wfQv1po6WoEWF3ihEUnrk6wVqM94"
+  "12xCbLX6EotUbf9Q7KnpMJcSHWZqUAwRUWFt3u9N2vVT"
 );
 
 export const DUMMY_LISTING_ACCOUNT = new PublicKey(
